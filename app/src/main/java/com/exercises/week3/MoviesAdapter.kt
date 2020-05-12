@@ -13,7 +13,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesModel>, private val listener: OnClickListener) : RecyclerView.Adapter<MoviesAdapter.MoviesVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesVH {
-        val view = LayoutInflater.from(context).inflate(R.layout.movies_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.movies_item_new, parent, false)
         return MoviesVH(view)
     }
 
@@ -50,10 +50,10 @@ class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesMod
     }
 
     class MoviesVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val poster = itemView.findViewById<CircleImageView>(R.id.cvItemPoster)
-        val posterGrid = itemView.findViewById<ImageView>(R.id.ivItemPoster)
-        val title = itemView.findViewById<TextView>(R.id.tvItemTitle)
-        val overview = itemView.findViewById<TextView>(R.id.tvItemOverview)
+        val poster = itemView.findViewById<ImageView>(R.id.ivItemPosterSmallNew)
+        val posterGrid = itemView.findViewById<ImageView>(R.id.ivItemPosterNew)
+        val title = itemView.findViewById<TextView>(R.id.tvItemTitleNew)
+        val overview = itemView.findViewById<TextView>(R.id.tvItemOverviewNew)
     }
 
 }
