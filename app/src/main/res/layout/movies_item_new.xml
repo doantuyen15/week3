@@ -4,67 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
-
-<!--    <ImageView-->
-<!--        android:id="@+id/ivItemPosterNew"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="360dp"-->
-<!--        android:src="@color/grey_20"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/relativeLayout2"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@drawable/card_bg"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/ivItemPosterNew">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvItemTitleNew"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_toEndOf="@id/ivItemPosterSmallNew"-->
-<!--            android:gravity="center"-->
-<!--            android:text="TextView"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textSize="24sp"-->
-<!--            android:textStyle="bold" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/ivItemPosterSmallNew"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="240dp"-->
-<!--            android:padding="8dp"-->
-
-<!--            android:src="@drawable/place_holder" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvItemOverviewNew"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/tvItemTitleNew"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:layout_toEndOf="@id/ivItemPosterSmallNew"-->
-<!--            android:ellipsize="end"-->
-<!--            android:maxLines="9"-->
-<!--            android:padding="8dp"-->
-<!--            android:text="@string/lorem"-->
-<!--            android:textSize="14sp" />-->
-
-<!--    </RelativeLayout>-->
-
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -85,9 +25,10 @@
             <ImageView
                 android:id="@+id/ivItemPosterNew"
                 android:layout_width="match_parent"
-                android:layout_height="420dp"
+                android:layout_height="220dp"
                 android:src="@color/grey_20"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/tvItemTitleNew"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +37,6 @@
                 android:id="@+id/ivItemPosterSmallNew"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvItemTitleNew"
@@ -106,8 +46,8 @@
                 android:id="@+id/tvItemTitleNew"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="8sp"
+                android:singleLine="true"
+                android:padding="4dp"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
@@ -122,7 +62,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="8"
+                android:maxLines="6"
                 android:padding="8dp"
                 android:text="@string/lorem"
                 android:textSize="18sp"

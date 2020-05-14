@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 invalidateOptionsMenu()
             }
             R.id.mGrid -> {
-                rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                rv.layoutManager = GridLayoutManager(this, 2)
                 viewMode = "Grid"
                 rv.adapter = adapter
                 invalidateOptionsMenu()

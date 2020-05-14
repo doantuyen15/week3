@@ -26,6 +26,7 @@ class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesMod
         if(viewMode == "List") {
             holder.poster.visibility = View.VISIBLE
             holder.posterGrid.visibility = View.GONE
+            holder.overview.visibility = View.VISIBLE
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
                 .centerCrop()
@@ -33,6 +34,7 @@ class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesMod
         } else if (viewMode == "Grid"){
             holder.poster.visibility = View.GONE
             holder.posterGrid.visibility = View.VISIBLE
+            holder.overview.visibility = View.GONE
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
                 .centerCrop()
