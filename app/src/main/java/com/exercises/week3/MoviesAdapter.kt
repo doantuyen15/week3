@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
@@ -22,6 +24,7 @@ class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesMod
     }
 
     override fun onBindViewHolder(holder: MoviesVH, position: Int) {
+        holder.container.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         val movie = data[position]
         if(viewMode == "List") {
             holder.poster.visibility = View.VISIBLE
@@ -52,6 +55,7 @@ class MoviesAdapter (private val context: Context, var data: ArrayList<MoviesMod
     }
 
     class MoviesVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val container = itemView.findViewById<CardView>(R.id.container)
         val poster = itemView.findViewById<ImageView>(R.id.ivItemPosterSmallNew)
         val posterGrid = itemView.findViewById<ImageView>(R.id.ivItemPosterNew)
         val title = itemView.findViewById<TextView>(R.id.tvItemTitleNew)
