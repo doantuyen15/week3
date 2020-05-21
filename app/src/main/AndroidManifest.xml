@@ -13,12 +13,12 @@
 
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.ProfileActivity"
             android:theme="@style/AppThemeNoActionBar">
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme"
             android:label="@string/app_name">
             <intent-filter>

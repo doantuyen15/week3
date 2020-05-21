@@ -10,5 +10,6 @@
         android:id="@+id/mList"
         android:icon="@drawable/ic_list"
         android:title="List View"
+        android:visible="false"
         app:showAsAction="ifRoom" />
 </menu>
