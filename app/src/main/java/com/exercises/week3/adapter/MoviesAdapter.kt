@@ -14,7 +14,7 @@ import com.exercises.week3.R
 import com.exercises.week3.model.*
 
 
-class MoviesAdapter(private val context: FragmentActivity?, var data: ArrayList<MoviesModel>, private val itemClickListener: OnClickListener) : RecyclerView.Adapter<MoviesAdapter.MoviesVH>() {
+class MoviesAdapter(private val context: FragmentActivity?, private var data: ArrayList<MoviesModel>, private val itemClickListener: OnClickListener, private val onBottomReachedListener: OnBottomReached?=null) : RecyclerView.Adapter<MoviesAdapter.MoviesVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesVH {
         val view = LayoutInflater.from(context).inflate(R.layout.movies_item_new, parent, false)
         return MoviesVH(view)
@@ -32,9 +32,6 @@ class MoviesAdapter(private val context: FragmentActivity?, var data: ArrayList<
             )
         )
         val movie = data[position]
-//        holder.poster.visibility = View.GONE
-//        holder.posterGrid.visibility = View.VISIBLE
-//        holder.overview.visibility = View.GONE
         if (context != null) {
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
@@ -42,31 +39,30 @@ class MoviesAdapter(private val context: FragmentActivity?, var data: ArrayList<
                 .into(holder.poster)
         }
         holder.title.text = movie.title
-        //holder.overview.text = movie.overview
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(movie)
         }
-//        holder.itemView.setOnLongClickListener {
-//            itemClickListener.onLongClick(movie)
-//            true
-//        }
+        holder.itemView.setOnLongClickListener {
+            itemClickListener.onLongClick(data[position])
+            true
+        }
+        if (position == data.size - 1){
+            onBottomReachedListener?.loadMore(position+1)
+        }
     }
 
     interface OnClickListener {
         fun onClick(movie: MoviesModel)
-//        fun onLongClick(movie: MoviesModel)
+        fun onLongClick(movie: MoviesModel)
     }
 
-//    interface OnLongClickListener {
-//        fun onLongClick(movie: MoviesModel)
-//    }
+    interface OnBottomReached {
+        fun loadMore(position: Int)
+    }
 
     class MoviesVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val container = itemView.findViewById<CardView>(R.id.container)
         val poster = itemView.findViewById<ImageView>(R.id.ivItemPosterSmallNew)
-        //        val posterGrid = itemView.findViewById<ImageView>(R.id.ivItemPosterNew)
         val title = itemView.findViewById<TextView>(R.id.tvItemTitleNew)
-//        val overview = itemView.findViewById<TextView>(R.id.tvItemOverviewNew)
     }
-
 }
