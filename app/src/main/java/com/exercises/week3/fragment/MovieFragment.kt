@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,11 +25,12 @@ class MovieFragment(des: String) : Fragment() {
     private var mData = ArrayList<MoviesModel>()
     private lateinit var adapter: MoviesAdapter
     private lateinit var db: MoviesDatabase
+    private var paging: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = MoviesDatabase.invoke(activity as Context)
-        getDataFromApi(0)
+        getDataFromApi()
     }
 
     override fun onCreateView(
@@ -96,6 +98,17 @@ class MovieFragment(des: String) : Fragment() {
             val dialog = builder.create();
             dialog.show()
         }
+
+        override fun onLikeClick(movie: MoviesModel) {
+            val builder = AlertDialog.Builder(activity!!)
+                .setMessage("Add this movie to favorites?")
+                .setPositiveButton("YES") { _, _ ->
+                    addToFavorite(movie)
+                }
+                .setNegativeButton("NO") { dialog, _ -> dialog?.dismiss() }
+            val dialog = builder.create();
+            dialog.show()
+        }
     }
 
     private val bottomReachedListener = object : MoviesAdapter.OnBottomReached {
@@ -109,28 +122,30 @@ class MovieFragment(des: String) : Fragment() {
         db.moviesDAO().insert(movie)
     }
 
-    private fun getDataFromApi(position: Int) {
-        val page = if (position != 0) {
-            position.div(20)+1
-        } else 1
+    private fun getDataFromApi(position: Int = 0) {
+        progressBar?.visibility = View.VISIBLE
         val callBack = object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
                 Log.d("MovieFrag", "***********dut cap!")
+                progressBar?.visibility = View.INVISIBLE
             }
-
             override fun onResponse(
                 call: Call<MovieResponse>?,
                 response: Response<MovieResponse>?
             ) {
                 response?.let {
-                    mData.addAll(it.body().result)
-                    adapter.notifyItemInserted(position)
-                    Log.d("MovieFrag", "***********${page}")
+                    if(paging <= it.body().totalPages) {
+                        mData.addAll(it.body().result)
+                        adapter.notifyItemInserted(position)
+                        paging++
+                        Log.d("MovieFrag", "***********${paging}")
+                    } else Toast.makeText(activity, "hết phim!", Toast.LENGTH_LONG).show()
+                    progressBar?.visibility = View.INVISIBLE
                 }
             }
         }
-        if (destination == "Top") MovieService.getInstance().getApi().getTopRateMovie(page).enqueue(callBack)
-        else if (destination == "Now") MovieService.getInstance().getApi().getNowPlaying(page).enqueue(callBack)
+        if (destination == "Top") MovieService.getInstance().getApi().getTopRateMovie(paging).enqueue(callBack)
+        else if (destination == "Now") MovieService.getInstance().getApi().getNowPlaying(paging).enqueue(callBack)
     }
 
     interface FragHomeCallback {

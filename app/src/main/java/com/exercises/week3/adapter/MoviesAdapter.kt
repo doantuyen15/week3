@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -46,14 +47,20 @@ class MoviesAdapter(private val context: FragmentActivity?, private var data: Ar
             itemClickListener.onLongClick(data[position])
             true
         }
-        if (position == data.size - 1){
-            onBottomReachedListener?.loadMore(position+1)
+
+        holder.likeButton.setOnClickListener {
+            itemClickListener.onLikeClick(movie)
+        }
+
+        if (position == data.size - 4){
+            onBottomReachedListener?.loadMore(data.size)
         }
     }
 
     interface OnClickListener {
         fun onClick(movie: MoviesModel)
         fun onLongClick(movie: MoviesModel)
+        fun onLikeClick(movie: MoviesModel)
     }
 
     interface OnBottomReached {
@@ -64,5 +71,6 @@ class MoviesAdapter(private val context: FragmentActivity?, private var data: Ar
         val container = itemView.findViewById<CardView>(R.id.container)
         val poster = itemView.findViewById<ImageView>(R.id.ivItemPosterSmallNew)
         val title = itemView.findViewById<TextView>(R.id.tvItemTitleNew)
+        val likeButton = itemView.findViewById<ImageView>(R.id.likeButton)
     }
 }

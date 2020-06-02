@@ -82,24 +82,31 @@ class FavoriteFragment: Fragment() {
         callBack = activity as FragFavoriteCallback
     }
 
+    private fun dialogBuild(movie: MoviesModel) {
+        val builder = AlertDialog.Builder(activity as Context)
+        builder
+            .setMessage("Bạn muốn xóa phim: ${movie.title} ?")
+            .setPositiveButton("OK") { _, _ ->
+                removeFromFavorite(movie)
+            }
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, _ -> dialog?.dismiss() }
+        val myDialog = builder.create();
+        myDialog.show()
+    }
+
     private val listener = object : MoviesAdapter.OnClickListener {
         override fun onClick(movie: MoviesModel) {
             callBack.moveToProfileCallback(movie)
         }
 
         override fun onLongClick(movie: MoviesModel) {
-            val builder = AlertDialog.Builder(activity as Context)
-            builder
-                .setMessage("Bạn muốn xóa phim: ${movie.title} ?")
-                .setPositiveButton("OK") { _, _ ->
-                    removeFromFavorite(movie)
-                }
-                .setNegativeButton(
-                    "Cancel"
-                ) { dialog, _ -> dialog?.dismiss() }
+            dialogBuild(movie)
+        }
 
-            val myDialog = builder.create();
-            myDialog.show()
+        override fun onLikeClick(movie: MoviesModel) {
+            dialogBuild(movie)
         }
     }
 
